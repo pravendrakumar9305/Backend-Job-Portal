@@ -13,7 +13,6 @@ const app = express();
 config({ path: "\.env" });
 
 const allowedOrigins = [
-  'http://localhost:5173',
   'https://backend-job-portal-1.onrender.com',
    // Add your frontend URL(s) here
   // Add more origins if needed
