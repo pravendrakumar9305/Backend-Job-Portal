@@ -12,26 +12,11 @@ import fileUpload from "express-fileupload";
 const app = express();
 config({ path: "\.env" });
 
-const allowedOrigins = [
-  'https://backend-job-portal-1.onrender.com',
-   // Add your frontend URL(s) here
-  // Add more origins if needed
-];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin); // Allow the origin
-      } else {
-        callback(new Error('Not allowed by CORS')); // Block the origin
-      }
-    },
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
-    credentials: true, // Allow credentials
-  })
-);
+
+app.use(cors({
+  origin: 'https://backend-job-portal-1.onrender.com' 
+}));
 
 
 
