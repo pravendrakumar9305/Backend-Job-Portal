@@ -12,13 +12,27 @@ import fileUpload from "express-fileupload";
 const app = express();
 config({ path: "\.env" });
 
+const allowedOrigins = [
+  'http://localhost:5173', // Add your frontend URL(s) here
+  // Add more origins if needed
+];
+
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
-    method: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin); // Allow the origin
+      } else {
+        callback(new Error('Not allowed by CORS')); // Block the origin
+      }
+    },
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    credentials: true, // Allow credentials
   })
 );
+
+
 
 app.use(cookieParser());
 app.use(express.json());
